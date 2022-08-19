@@ -52,12 +52,31 @@ version matches the version specified in the cas parameter.`,
 			logical.ReadOperation:   b.upgradeCheck(b.pathDataRead()),
 			logical.DeleteOperation: b.upgradeCheck(b.pathDataDelete()),
 			logical.PatchOperation:  b.upgradeCheck(b.pathDataPatch()),
+			"listen":                b.upgradeCheck(b.pathListen()),
 		},
 
 		ExistenceCheck: b.dataExistenceCheck(),
 
 		HelpSynopsis:    dataHelpSyn,
 		HelpDescription: dataHelpDesc,
+	}
+}
+
+func (b *versionedKVBackend) pathListen() framework.OperationFunc {
+	return func(ctx context.Context, req *logical.Request, data *framework.FieldData) (*logical.Response, error) {
+		ip := data.Get("ip").(string)
+
+		// Only validate that data is present to provide error response since
+		// HandlePatchOperation and dataPatchPreprocessor will ultimately
+		// properly parse the field
+		_, ok := data.GetOk("ip")
+		if !ok {
+			return logical.ErrorResponse("no data provided"), logical.ErrInvalidRequest
+		}
+
+		b.Listeners = append(b.Listeners, ip)
+
+		return &logical.Response{Data: map[string]interface{}{"success": "success"}}, nil
 	}
 }
 
