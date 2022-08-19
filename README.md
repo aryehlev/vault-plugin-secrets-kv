@@ -78,6 +78,9 @@ $ vault server -config=path/to/config.json ...
 ...
 ```
 
+
+
+
 Once the server is started, register the plugin in the Vault server's [plugin catalog](https://www.vaultproject.io/docs/internals/plugins.html#plugin-catalog):
 
 ```sh
