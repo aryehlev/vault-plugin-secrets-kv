@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
+	kv "github.com/aryehlev/vault-plugin-secrets-kv"
 	hclog "github.com/hashicorp/go-hclog"
-	kv "github.com/hashicorp/vault-plugin-secrets-kv"
 	"github.com/hashicorp/vault/api"
 	"github.com/hashicorp/vault/sdk/plugin"
 )
