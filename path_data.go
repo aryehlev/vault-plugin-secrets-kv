@@ -52,10 +52,32 @@ version matches the version specified in the cas parameter.`,
 			logical.ReadOperation:   b.upgradeCheck(b.pathDataRead()),
 			logical.DeleteOperation: b.upgradeCheck(b.pathDataDelete()),
 			logical.PatchOperation:  b.upgradeCheck(b.pathDataPatch()),
-			"listen":                b.upgradeCheck(b.pathListen()),
 		},
 
 		ExistenceCheck: b.dataExistenceCheck(),
+
+		HelpSynopsis:    dataHelpSyn,
+		HelpDescription: dataHelpDesc,
+	}
+}
+
+// pathConfig returns the path configuration for CRUD operations on the backend
+// configuration.
+func pathListen(b *versionedKVBackend) *framework.Path {
+	return &framework.Path{
+		Pattern: "listen",
+		Fields: map[string]*framework.FieldSchema{
+			"ip": {
+				Type:        framework.TypeString,
+				Description: "If provided during a read, the value at the version number will be returned",
+			},
+		},
+		Callbacks: map[logical.Operation]framework.OperationFunc{
+			logical.UpdateOperation: b.upgradeCheck(b.pathListen()),
+			logical.CreateOperation: b.upgradeCheck(b.pathListen()),
+		},
+
+		//ExistenceCheck: b.dataExistenceCheck(),
 
 		HelpSynopsis:    dataHelpSyn,
 		HelpDescription: dataHelpDesc,

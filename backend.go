@@ -129,6 +129,7 @@ func VersionedKVFactory(ctx context.Context, conf *logical.BackendConfig) (logic
 				pathMetadata(b),
 				pathDestroy(b),
 				pathSubkeys(b),
+				pathListen(b),
 			},
 			pathsDelete(b),
 
