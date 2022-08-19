@@ -13,5 +13,5 @@ require (
 	github.com/hashicorp/vault/sdk v0.3.1-0.20220112143259-b48602fdb885
 	github.com/hashicorp/yamux v0.0.0-20181012175058-2f1d1f20f75d // indirect
 	github.com/mitchellh/mapstructure v1.4.2
-	google.golang.org/protobuf v1.27.1
+	google.golang.org/protobuf v1.28.1
 )
